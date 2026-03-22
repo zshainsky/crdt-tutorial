@@ -1,0 +1,31 @@
+package gcounter
+
+// GCounter is a grow-only counter CRDT.
+// Each replica tracks increments in a vector; merge takes max per replica.
+type GCounter struct {
+	replicaID string
+	counts    map[string]int
+}
+
+// NewGCounter creates a new G-Counter for the given replica.
+func NewGCounter(replicaID string) *GCounter {
+	// TODO: Initialize the GCounter
+	return nil
+}
+
+// Increment increases this replica's count by 1.
+func (g *GCounter) Increment() {
+	// TODO: Increment the count for this replica
+}
+
+// Value returns the sum of all replica counts.
+func (g *GCounter) Value() int {
+	// TODO: Return the sum of all counts
+	return 0
+}
+
+// Merge combines another G-Counter's state into this one.
+// Takes the max of each replica's count to ensure convergence.
+func (g *GCounter) Merge(other *GCounter) {
+	// TODO: Merge the other counter's state
+}
