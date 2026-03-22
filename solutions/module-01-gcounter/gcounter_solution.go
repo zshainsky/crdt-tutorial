@@ -1,4 +1,4 @@
-package gcounter
+package gcountersolution
 
 // GCounter is a grow-only counter CRDT.
 // Each replica tracks increments in a vector; merge takes max per replica.

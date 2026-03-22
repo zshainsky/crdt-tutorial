@@ -18,7 +18,7 @@ func TestGCounterInitialValue(t *testing.T) {
 
 // Should return correct value after increments
 func TestGCounterIncrement(t *testing.T) {
-	// TODO: Create a GCounter, increment 5 times, assert Value() == 5
+	// Create a GCounter, increment 5 times, assert Value() == 5
 	gc := NewGCounter("A")
 	if gc == nil {
 		t.Errorf("GCounter should not be nil")

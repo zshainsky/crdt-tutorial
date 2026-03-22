@@ -1,4 +1,4 @@
-package gcounter
+package gcountersolution
 
 import (
 	"testing"
