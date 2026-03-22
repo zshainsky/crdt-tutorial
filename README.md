@@ -9,7 +9,7 @@
 
 By the end of this tutorial, you'll have:
 
-1. **A Go CRDT library** (`github.com/zshainky/crdt-tutorial/crdts`) with:
+1. **A Go CRDT library** (`github.com/zshainsky/crdt-tutorial/crdts`) with:
    - G-Counter (grow-only counter)
    - PN-Counter (increment/decrement)
    - LWW-Register (last-write-wins register)
