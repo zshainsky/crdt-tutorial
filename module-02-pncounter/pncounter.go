@@ -27,25 +27,29 @@ func NewPNCounter(replicaID string) *PNCounter {
 
 // Increment increases the counter value by 1.
 func (pn *PNCounter) Increment() {
-	// TODO: Increment the P counter
+	// Increment the P counter
+	pn.p.Increment()
 }
 
 // Decrement decreases the counter value by 1.
 func (pn *PNCounter) Decrement() {
-	// TODO: Increment the N counter (yes, increment!)
+	// Increment the N counter (yes, increment!)
 	// We're counting "how many times we decremented"
+	pn.n.Increment()
 }
 
 // Value returns the current value of the counter (P - N).
 func (pn *PNCounter) Value() int {
-	// TODO: Return P.Value() - N.Value()
-	return 0
+	// Return P.Value() - N.Value()
+	return pn.p.Value() - pn.n.Value()
 }
 
 // Merge combines another PN-Counter's state into this one.
 // Merges both the P and N counters.
 func (pn *PNCounter) Merge(other *PNCounter) {
-	// TODO: Merge both P and N counters
+	// Merge both P and N counters
 	// pn.p.Merge(other.p)
 	// pn.n.Merge(other.n)
+	pn.p.Merge(other.p)
+	pn.n.Merge(other.n)
 }
