@@ -1,0 +1,50 @@
+// TODO: Add package declaration (package registers)
+package registers
+
+import "testing"
+
+// Should contain element after Add
+func TestORSetContainsAfterAdd(t *testing.T) {
+	// TODO: Create an OR-Set, add an element, assert Contains returns true
+}
+
+// Should not contain element after Remove
+func TestORSetNotContainsAfterRemove(t *testing.T) {
+	// TODO: Add an element, then remove it, assert Contains returns false
+}
+
+// Elements should return a sorted list of all live elements
+func TestORSetElementsSorted(t *testing.T) {
+	// TODO: Add several elements in non-alphabetical order
+	// Assert Elements() returns them in sorted order
+}
+
+// Should contain elements from both replicas after merge
+func TestORSetMergeCombinesElements(t *testing.T) {
+	// TODO: Create two OR-Sets with different elements, merge one into the other
+	// Assert both elements are present in the merged set
+}
+
+// Should be idempotent (merging same state twice has no effect)
+func TestORSetMergeIdempotent(t *testing.T) {
+	// TODO: Merge B into A twice — assert Elements() is identical after both merges
+}
+
+// Should be commutative (A absorbs B and B absorbs A reach the same result)
+func TestORSetMergeCommutative(t *testing.T) {
+	// TODO: Merge in both directions — assert both results contain the same elements
+}
+
+// Concurrent Add should survive a concurrent Remove (add-wins)
+func TestORSetConcurrentAddRemoveAddWins(t *testing.T) {
+	// TODO: Replica A adds an element (gets tag A:1)
+	// Replica B also adds the same element (gets tag B:1) — before any merge
+	// Replica A removes the element — this only tombstones A:1
+	// Merge A and B — assert the element is still in the set (B:1 is still live)
+}
+
+// Re-adding a removed element should make it visible again
+func TestORSetReAddAfterRemove(t *testing.T) {
+	// TODO: Add, remove, then add again
+	// Assert the element is in the set (the new Add creates a fresh tag)
+}
