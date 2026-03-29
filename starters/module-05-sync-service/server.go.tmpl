@@ -1,0 +1,51 @@
+// TODO: Add package declaration (package syncservice)
+
+// TODO: Import "log", "net/http", "sync",
+//   the gorilla/websocket package ("github.com/gorilla/websocket"),
+//   and the todolist package from module 04
+
+// TODO: Create a package-level websocket.Upgrader that allows all origins
+
+// Hub maintains the shared TodoList and all connected WebSocket clients.
+type Hub struct {
+	// TODO: Add a field for the shared TodoList (pointer)
+	// TODO: Add a map from WebSocket connections to bool to track active clients
+	// TODO: Add a sync.Mutex to protect concurrent access to todos and clients
+}
+
+// NewHub creates a Hub with an empty TodoList.
+func NewHub() *Hub {
+	// TODO: Initialize the TodoList (replica ID "server") and the clients map
+	return nil
+}
+
+// ServeHTTP upgrades the HTTP connection to WebSocket and runs the message loop.
+// Hub implements http.Handler, so it can be passed directly to http.Handle.
+func (h *Hub) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// TODO: Upgrade the HTTP connection to WebSocket using the upgrader
+	// TODO: Register the new connection in h.clients (hold the mutex while writing)
+	// TODO: Defer cleanup: remove the connection from h.clients and close it
+
+	// TODO: Send the current state snapshot to this new client
+
+	// TODO: Loop forever reading messages from conn:
+	//   - If the message cannot be read (error), break out of the loop
+	//   - Decode the raw bytes into a Message; log and skip if decoding fails
+	//   - If msg.Type is TypeJoin: send the current state to this client only
+	//   - If msg.Type is TypeOp:
+	//       apply the operation to h.todos
+	//       build a state message from the updated TodoList
+	//       broadcast the state to all connected clients
+}
+
+// sendStateTo sends the current state snapshot to a single connection.
+func (h *Hub) sendStateTo(conn *websocket.Conn) {
+	// TODO: Under the mutex, build a state message from h.todos
+	// TODO: Encode it to JSON and write it to conn
+}
+
+// broadcastTo sends a message to a slice of connections.
+func (h *Hub) broadcastTo(msg Message, conns []*websocket.Conn) {
+	// TODO: Encode the message to JSON
+	// TODO: Write it to each connection in conns; log any write errors
+}

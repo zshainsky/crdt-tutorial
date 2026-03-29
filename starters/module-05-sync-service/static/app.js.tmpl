@@ -1,0 +1,49 @@
+// TODO: Open a WebSocket connection to the server.
+// The URL should point to the /ws endpoint on the current host (use location.host).
+
+// TODO: When the connection opens:
+//   - update the status indicator to "connected"
+//   - send a "join" message to request the current state from the server
+
+// TODO: When the connection closes or errors, update the status indicator to "disconnected"
+
+// TODO: When a message arrives:
+//   - parse the JSON
+//   - if the message type is "state", call renderTasks with the task list (use an empty array as fallback)
+
+function setStatus(s) {
+  // TODO: Set statusEl's className to "status " + s
+  // TODO: Capitalize the first letter of s and set statusEl.textContent
+}
+
+function renderTasks(tasks) {
+  // TODO: Clear the #task-list element
+  // TODO: For each task, build a list item containing:
+  //   - a checkbox (checked if task.completed) that sends a "setCompleted" op on change
+  //   - a span with task.title that triggers editTitle on double-click
+  //   - a delete button (class "del-btn") that sends a "remove" op on click
+  //   Apply the "completed" CSS class to the <li> if the task is completed
+}
+
+function addTask() {
+  // TODO: Read the value from the #new-task input and trim whitespace
+  // TODO: If the value is non-empty, send an "add" operation with the title
+  // TODO: Clear the input field
+}
+
+function removeTask(id) {
+  // TODO: Send a "remove" operation with the given task id
+}
+
+function setCompleted(id, completed) {
+  // TODO: Send a "setCompleted" operation with the given task id and boolean value
+}
+
+function editTitle(id, span) {
+  // TODO: Replace the span with a text input pre-filled with the current title
+  // TODO: On blur (or Enter key): if the new title is non-empty and different, send a "setTitle" op
+  // TODO: On Escape: cancel the edit without sending
+  // TODO: Focus and select the input immediately
+}
+
+// TODO: Wire the Enter key on the #new-task input to call addTask()
