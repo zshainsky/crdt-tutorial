@@ -1,0 +1,43 @@
+// TODO: Add package declaration (package registers)
+
+import "testing"
+
+// Should return empty string for a new register
+func TestLWWRegisterInitialGet(t *testing.T) {
+	// TODO: Create a register and assert Get() returns ""
+}
+
+// Should return the value after Set
+func TestLWWRegisterSetGet(t *testing.T) {
+	// TODO: Use SetAt to assign a value with a known timestamp, then assert Get() returns it
+}
+
+// Should keep the higher-timestamp value after merge
+func TestLWWRegisterMergeHigherTimestampWins(t *testing.T) {
+	// TODO: Give register A an older timestamp, register B a newer one
+	// Merge B into A — assert A now holds B's value
+}
+
+// Should ignore a lower-timestamp value during merge
+func TestLWWRegisterMergeLowerTimestampIgnored(t *testing.T) {
+	// TODO: Give register A a newer timestamp, register B an older one
+	// Merge B into A — assert A keeps its own value
+}
+
+// Should be idempotent (merging same state twice has no effect)
+func TestLWWRegisterMergeIdempotent(t *testing.T) {
+	// TODO: Merge B into A twice — assert the value is unchanged after the second merge
+}
+
+// Should be commutative (A absorbs B and B absorbs A both reach the same value)
+func TestLWWRegisterMergeCommutative(t *testing.T) {
+	// TODO: Set up two registers with different timestamps
+	// Merge in both directions (A←B and B←A separately)
+	// Assert both results are the same value
+}
+
+// Should keep current value when timestamps are equal (tie-break)
+func TestLWWRegisterTieBreak(t *testing.T) {
+	// TODO: Give both registers the same timestamp but different values
+	// Merge B into A — assert A keeps its own value
+}

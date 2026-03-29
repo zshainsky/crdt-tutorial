@@ -1,0 +1,42 @@
+// TODO: Add package declaration (package registers)
+
+// TODO: Import the "time" package
+
+// LWWRegister is a Last-Write-Wins Register CRDT.
+// It stores a single string value. On merge, the replica with the
+// higher timestamp wins. Equal timestamps keep the current value.
+type LWWRegister struct {
+	replicaID string
+	// TODO: Add a field for the current value (string)
+	// TODO: Add a field for the timestamp of that value (int64, Unix nanoseconds)
+}
+
+// NewLWWRegister creates a new LWW-Register for the given replica.
+func NewLWWRegister(replicaID string) *LWWRegister {
+	// TODO: Return an initialized LWWRegister
+	return nil
+}
+
+// Set updates the register's value, stamped with the current time.
+func (r *LWWRegister) Set(value string) {
+	// TODO: Delegate to SetAt, passing the current time in nanoseconds
+}
+
+// SetAt updates the register's value with an explicit timestamp.
+// Use this in tests for deterministic behavior.
+func (r *LWWRegister) SetAt(value string, ts int64) {
+	// TODO: Store both the value and the timestamp
+}
+
+// Get returns the current value of the register.
+func (r *LWWRegister) Get() string {
+	// TODO: Return the stored value
+	return ""
+}
+
+// Merge combines another LWW-Register's state into this one.
+// The replica with the higher timestamp wins.
+func (r *LWWRegister) Merge(other *LWWRegister) {
+	// TODO: If the other register has a strictly higher timestamp,
+	// adopt its value and timestamp
+}

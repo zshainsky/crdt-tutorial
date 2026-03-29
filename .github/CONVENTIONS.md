@@ -363,6 +363,29 @@ type PNCounter struct {
 
 **Key:** Import the working directory package, NOT the solution package.
 
+### Starter Template Content Rules
+
+TODO comments in `.go.tmpl` files must use **plain English or pseudocode only** — never actual Go code.
+
+**Bad (gives away the answer):**
+```go
+// TODO: Merge both P and N counters
+// pn.p.Merge(other.p)
+// pn.n.Merge(other.n)
+```
+
+**Good (guides without spoiling):**
+```go
+// TODO: Merge both the positive and negative sub-counters
+```
+
+This applies to:
+- Implementation stubs (`.go.tmpl`)
+- Test stubs (`_test.go.tmpl`)
+- Module README workflow and hint sections — describe *what* to do, not *how* in code
+
+Hints in README `<details>` blocks may use pseudocode when the logic is genuinely hard to describe in English, but must never contain valid, compilable Go.
+
 ### Test File Conventions
 - Always `*_test.go` suffix (Go convention)
 - Never `starter_test.go` (bad naming)

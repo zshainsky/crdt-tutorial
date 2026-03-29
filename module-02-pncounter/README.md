@@ -405,7 +405,7 @@ Once your tests pass, try adding:
 
 ## Next Module
 
-Once you've completed this module, move on to [Module 03 - LWW-Register & OR-Set](../module-03-lwwregister/) to learn about registers (single values) and sets with tombstones.
+Once you've completed this module, move on to [Module 03 - Registers & Sets](../module-03-registers-and-sets/) to learn about registers (single values) and sets with tombstones.
 
 ---
 

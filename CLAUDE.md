@@ -66,6 +66,7 @@ See `.github/CONVENTIONS.md` for the full workflow. Key checklist:
 
 - `module-XX-name/` contains only `README.md` initially (no committed working code)
 - `starters/module-XX-name/*.go.tmpl` — NO package declaration at top
+- `starters/module-XX-name/*.go.tmpl` — TODO comments use plain English only, **never actual Go code** (see `.github/CONVENTIONS.md` for the rule)
 - `solutions/module-XX-name/` — package named `<modulename>solution`
 - Solution tests pass: `cd solutions/module-XX-name && go test .`
 - Module linked from root `README.md`
