@@ -1,0 +1,56 @@
+// TODO: Add package declaration (package todolist)
+
+import "testing"
+
+// AddTask should return a non-empty ID; Tasks() should show the task with correct title and not completed
+func TestTodoListAddTask(t *testing.T) {
+	// TODO: Create a TodoList, add a task, assert the returned ID is non-empty
+	// Assert Tasks() has exactly 1 task with the right title and Completed == false
+}
+
+// Tasks() should be empty after a task is removed
+func TestTodoListRemoveTask(t *testing.T) {
+	// TODO: Add a task, remove it by ID, assert Tasks() returns an empty slice
+}
+
+// SetTitle should update the task's title
+func TestTodoListSetTitle(t *testing.T) {
+	// TODO: Add a task, call SetTitle with a new title, assert Tasks()[0].Title matches
+}
+
+// SetCompleted should toggle the task's completed state
+func TestTodoListSetCompleted(t *testing.T) {
+	// TODO: Add a task, set completed to true, assert Tasks()[0].Completed == true
+	// Then set it back to false and assert again
+}
+
+// After merging two lists, tasks from both replicas should be present
+func TestTodoListMerge(t *testing.T) {
+	// TODO: Create two TodoLists (different replica IDs), each adds a different task
+	// Merge one into the other — assert both tasks are present
+}
+
+// Merging the same state twice should not duplicate tasks
+func TestTodoListMergeIdempotent(t *testing.T) {
+	// TODO: Merge B into A, record the task count, merge B into A again
+	// Assert the count did not change
+}
+
+// Merging in different orders should yield the same result
+func TestTodoListMergeCommutative(t *testing.T) {
+	// TODO: A←B and B←A should both result in the same number of tasks
+}
+
+// When two replicas concurrently edit the same task's title, the higher timestamp wins
+func TestTodoListConcurrentTitleEdit(t *testing.T) {
+	// TODO: Replica A adds a task; B merges to get a copy
+	// Both edit the title using SetTitleAt with different timestamps
+	// After merge, assert the edit with the higher timestamp survived
+}
+
+// A task added concurrently with a remove should survive (OR-Set add-wins)
+func TestTodoListConcurrentAddRemove(t *testing.T) {
+	// TODO: A adds task one; B merges and then removes task one
+	// A adds task two concurrently (before any merge)
+	// Merge A and B — assert task one is gone but task two is present
+}

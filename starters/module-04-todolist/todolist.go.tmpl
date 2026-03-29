@@ -1,0 +1,87 @@
+// TODO: Add package declaration (package todolist)
+
+// TODO: Import "fmt" and the registers package:
+//   import registers "github.com/zshainsky/crdt-tutorial/module-03-registers-and-sets"
+
+// Task is a snapshot of a single task's current state.
+type Task struct {
+	ID        string
+	Title     string
+	Completed bool
+}
+
+// TodoList is a CRDT-based collaborative todo list.
+// It composes an OR-Set (for task membership) and LWW-Registers
+// (for each task's mutable fields) to achieve convergent merge.
+type TodoList struct {
+	replicaID string
+	counter   int
+	// TODO: Add a field for the OR-Set of live task IDs
+	// TODO: Add a map from task ID to its title register (LWWRegister)
+	// TODO: Add a map from task ID to its completed register (LWWRegister)
+}
+
+// NewTodoList creates a new TodoList for the given replica.
+func NewTodoList(replicaID string) *TodoList {
+	// TODO: Initialize the OR-Set and both maps, then return
+	return nil
+}
+
+// AddTask creates a new task with the given title and returns its generated ID.
+// Task IDs must be globally unique — use replicaID and counter together.
+func (t *TodoList) AddTask(title string) string {
+	// TODO: Increment the counter
+	// TODO: Generate a unique task ID from replicaID and counter
+	// TODO: Add the task ID to the OR-Set
+	// TODO: Create a title register and set its initial value
+	// TODO: Create a completed register and set its initial value to "false"
+	// TODO: Return the task ID
+	return ""
+}
+
+// RemoveTask removes a task by ID.
+func (t *TodoList) RemoveTask(id string) {
+	// TODO: Remove the task ID from the OR-Set
+}
+
+// SetTitle updates the title of an existing task.
+// Silently ignores unknown task IDs.
+func (t *TodoList) SetTitle(id, title string) {
+	// TODO: If the task's title register exists, update it with the new title
+}
+
+// SetTitleAt updates the title with an explicit timestamp.
+// Use in tests for deterministic conflict resolution.
+func (t *TodoList) SetTitleAt(id, title string, ts int64) {
+	// TODO: If the task's title register exists, update it using the explicit timestamp
+}
+
+// SetCompleted marks a task as completed or not.
+// Silently ignores unknown task IDs.
+func (t *TodoList) SetCompleted(id string, done bool) {
+	// TODO: Convert the bool to the string "true" or "false"
+	// TODO: If the task's completed register exists, update it
+}
+
+// SetCompletedAt marks a task completed with an explicit timestamp.
+// Use in tests for deterministic conflict resolution.
+func (t *TodoList) SetCompletedAt(id string, done bool, ts int64) {
+	// TODO: Same as SetCompleted but use the explicit timestamp
+}
+
+// Tasks returns all live tasks in task-ID order.
+// Tasks whose IDs have been removed are excluded.
+func (t *TodoList) Tasks() []Task {
+	// TODO: Get the list of live task IDs from the OR-Set (already sorted)
+	// TODO: For each ID, read the title and completed registers and build a Task
+	// TODO: Return the slice of Tasks
+	return nil
+}
+
+// Merge combines another TodoList's state into this one.
+func (t *TodoList) Merge(other *TodoList) {
+	// TODO: Merge the OR-Sets of task IDs
+	// TODO: For each task ID the other side knows about, merge its title register
+	//       (create a new register for this replica if we don't have one yet)
+	// TODO: Do the same for each task's completed register
+}
