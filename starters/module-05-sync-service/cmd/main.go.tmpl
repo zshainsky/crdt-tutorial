@@ -1,0 +1,17 @@
+package main
+
+import (
+	"log"
+	"net/http"
+
+	syncservice "github.com/zshainsky/crdt-tutorial/module-05-sync-service"
+)
+
+func main() {
+	hub := syncservice.NewHub()
+	http.Handle("/ws", hub)
+	http.Handle("/", http.FileServer(http.Dir("static")))
+	log.Println("Server started at http://localhost:8080")
+	log.Println("Open two browser tabs to test real-time sync.")
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}

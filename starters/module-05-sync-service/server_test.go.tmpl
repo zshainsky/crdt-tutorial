@@ -1,0 +1,71 @@
+// TODO: Add package declaration (package syncservice)
+
+// TODO: Import "encoding/json", "net/http/httptest", "strings", "testing", "time",
+//   and "github.com/gorilla/websocket"
+
+// dial opens a WebSocket connection to srv and registers cleanup with t.
+// Hint: httptest.Server.URL starts with "http://"; replace "http" with "ws" to get the WebSocket URL.
+func dial(t *testing.T, srv *httptest.Server) *websocket.Conn {
+	// TODO: Build the WebSocket URL from srv.URL
+	// TODO: Dial the server using websocket.DefaultDialer
+	// TODO: Register conn.Close() as a cleanup with t.Cleanup
+	// TODO: Return the connection
+	return nil
+}
+
+// readMsg reads the next message from conn with a 2-second deadline.
+func readMsg(t *testing.T, conn *websocket.Conn) Message {
+	// TODO: Set a read deadline of 2 seconds on conn
+	// TODO: Read the next message; call t.Fatalf if reading or decoding fails
+	// TODO: Unmarshal the bytes into a Message and return it
+	return Message{}
+}
+
+// sendMsg encodes m as JSON and writes it to conn.
+func sendMsg(t *testing.T, conn *websocket.Conn, m Message) {
+	// TODO: Marshal m to JSON and write it to conn as a text message
+}
+
+// TestWebSocketUpgrade verifies that a client can connect to the server without error.
+func TestWebSocketUpgrade(t *testing.T) {
+	// TODO: Create a NewHub and start an httptest.Server backed by it
+	// TODO: Call dial to connect a client; success means the upgrade worked
+}
+
+// TestStateSync verifies that a connecting client immediately receives the current state.
+func TestStateSync(t *testing.T) {
+	// TODO: Create a Hub and test server
+	// TODO: Connect a client and read the first message
+	// TODO: Assert the message type is TypeState
+}
+
+// TestStateSyncAfterJoin verifies that sending a "join" message returns a fresh state snapshot.
+func TestStateSyncAfterJoin(t *testing.T) {
+	// TODO: Connect a client and drain its initial state message
+	// TODO: Send a TypeJoin message
+	// TODO: Read the response and assert it is TypeState
+}
+
+// TestOperationBroadcast verifies that an operation sent by one client reaches all clients.
+func TestOperationBroadcast(t *testing.T) {
+	// TODO: Connect two clients (A and B) and drain their initial state messages
+	// TODO: Have client A send an "add" operation with a title
+	// TODO: Read messages from both A and B (the server broadcasts to all)
+	// TODO: Assert both received a TypeState message containing the new task
+}
+
+// TestConcurrentOperations verifies that operations from multiple clients all appear in the final state.
+func TestConcurrentOperations(t *testing.T) {
+	// TODO: Connect clients A and B, drain initial states
+	// TODO: A sends an "add" op; drain the resulting broadcast from both A and B
+	// TODO: B sends an "add" op; drain the resulting broadcast from both A and B
+	// TODO: Assert the final state seen by B contains both tasks
+}
+
+// TestReconnection verifies that a reconnecting client receives the accumulated state.
+func TestReconnection(t *testing.T) {
+	// TODO: Connect a client, add a task, then wait for the broadcast (confirms the op was applied)
+	// TODO: Close that connection
+	// TODO: Connect a new client and read its initial state
+	// TODO: Assert the state contains the task that was added before the disconnect
+}

@@ -1,0 +1,68 @@
+// TODO: Add package declaration (package syncservice)
+
+// TODO: Import "encoding/json" and the todolist package from module 04:
+//   todolist "github.com/zshainsky/crdt-tutorial/module-04-todolist"
+
+// Message type constants — use these instead of raw strings.
+const (
+	TypeJoin  = "join"
+	TypeState = "state"
+	TypeOp    = "op"
+)
+
+// Operation action constants — match what the JavaScript client sends.
+const (
+	ActionAdd          = "add"
+	ActionRemove       = "remove"
+	ActionSetTitle     = "setTitle"
+	ActionSetCompleted = "setCompleted"
+)
+
+// Message is the JSON envelope for all WebSocket communication.
+// All fields use omitempty so unused fields are omitted from JSON.
+type Message struct {
+	Type      string `json:"type"`
+	Action    string `json:"action,omitempty"`
+	ID        string `json:"id,omitempty"`
+	Title     string `json:"title,omitempty"`
+	Completed bool   `json:"completed,omitempty"`
+	Tasks     []Task `json:"tasks,omitempty"`
+}
+
+// Task is the wire representation of a single todo item.
+type Task struct {
+	ID        string `json:"id"`
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
+}
+
+// Apply executes the operation described by m against todos.
+// Returns the new task ID for "add" actions, empty string otherwise.
+func (m *Message) Apply(todos *todolist.TodoList) string {
+	// TODO: Use a switch on m.Action and call the matching TodoList method:
+	//   "add"          → call AddTask with m.Title, return the resulting task ID
+	//   "remove"       → call RemoveTask with m.ID
+	//   "setTitle"     → call SetTitle with m.ID and m.Title
+	//   "setCompleted" → call SetCompleted with m.ID and m.Completed
+	return ""
+}
+
+// StateMessage builds a TypeState message from the current TodoList.
+func StateMessage(todos *todolist.TodoList) Message {
+	// TODO: Call todos.Tasks() to get the current task list
+	// TODO: Convert each todolist.Task to a Task (wire type) and collect into a slice
+	// TODO: Return a Message with Type set to TypeState and Tasks set to the slice
+	return Message{}
+}
+
+// Encode serializes a Message to JSON bytes.
+func Encode(m Message) ([]byte, error) {
+	// TODO: Use the standard library to marshal m to JSON
+	return nil, nil
+}
+
+// Decode parses JSON bytes into a Message.
+func Decode(data []byte) (Message, error) {
+	// TODO: Use the standard library to unmarshal data into a Message and return it
+	return Message{}, nil
+}
