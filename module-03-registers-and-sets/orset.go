@@ -1,7 +1,10 @@
-// TODO: Add package declaration (package registers)
+// Add package declaration (package registers)
 package registers
 
-// TODO: Import "fmt" and "sort"
+import (
+	"fmt"
+	"slices"
+)
 
 // ORSet is an Observed-Remove Set CRDT.
 // It supports Add and Remove with add-wins semantics:
@@ -12,45 +15,85 @@ package registers
 type ORSet struct {
 	replicaID string
 	counter   int
-	// TODO: Add a map from element to its set of live tags
+	// Add a map from element to its set of live tags
 	//       (each element maps to a set of tag strings)
-	// TODO: Add a set of tombstoned tags (removed tags)
+	adds map[string]map[string]struct{}
+	// Add a set of tombstoned tags (removed tags)
+	tombstones map[string]struct{}
 }
 
 // NewORSet creates a new OR-Set for the given replica.
 func NewORSet(replicaID string) *ORSet {
-	// TODO: Return an initialized ORSet with empty maps
-	return nil
+	// Return an initialized ORSet with empty maps
+	return &ORSet{
+		replicaID:  replicaID,
+		counter:    0,
+		adds:       make(map[string]map[string]struct{}),
+		tombstones: make(map[string]struct{}),
+	}
 }
 
 // Add inserts an element with a fresh unique tag.
 func (s *ORSet) Add(element string) {
-	// TODO: Increment the counter
-	// TODO: Generate a unique tag by combining replicaID and counter
-	// TODO: Record this tag as a live tag for the element
+	// Increment the counter
+	s.counter++
+	// Generate a unique tag by combining replicaID and counter
+	tag := fmt.Sprintf("%s:%d", s.replicaID, s.counter)
+	// Record this tag as a live tag for the element
+	if s.adds[element] == nil {
+		s.adds[element] = make(map[string]struct{})
+	}
+	s.adds[element][tag] = struct{}{}
 }
 
 // Remove tombstones all currently-known tags for this element.
 // Tags added concurrently by other replicas (not yet merged) are unaffected.
 func (s *ORSet) Remove(element string) {
-	// TODO: Move all known tags for this element into the tombstone set
+	// Move all known tags for this element into the tombstone set
+	for tag := range s.adds[element] {
+		s.tombstones[tag] = struct{}{}
+	}
 }
 
 // Contains returns true if the element has at least one live (non-tombstoned) tag.
 func (s *ORSet) Contains(element string) bool {
-	// TODO: Return true if any tag for this element is not in the tombstone set
+	// Return true if any tag for this element is not in the tombstone set
+	for tag := range s.adds[element] {
+		if _, ok := s.tombstones[tag]; !ok {
+			return true
+		}
+	}
 	return false
 }
 
 // Elements returns a sorted slice of all elements currently in the set.
 func (s *ORSet) Elements() []string {
-	// TODO: Collect all elements where Contains returns true
-	// TODO: Sort the result before returning
-	return nil
+	// Collect all elements where Contains returns true
+	// Sort the result before returning
+	var res []string
+	for elem := range s.adds {
+		if s.Contains(elem) {
+			res = append(res, elem)
+		}
+	}
+	slices.Sort(res)
+	return res
 }
 
 // Merge combines another OR-Set's state into this one.
 func (s *ORSet) Merge(other *ORSet) {
-	// TODO: For each element in the other set, union its tags into this set's tags
-	// TODO: Union the tombstone sets
+	// For each element in the other set, union its tags into this set's tags
+	// Union the tombstone sets
+	for elem, tags := range other.adds {
+		for tag := range tags {
+			if s.adds[elem] == nil {
+				s.adds[elem] = make(map[string]struct{})
+			}
+			s.adds[elem][tag] = struct{}{}
+		}
+	}
+
+	for tag := range other.tombstones {
+		s.tombstones[tag] = struct{}{}
+	}
 }
